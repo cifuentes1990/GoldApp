@@ -1,0 +1,17 @@
+{
+  "name": "aurum-gold-trading",
+  "version": "1.0.0",
+  "description": "Plataforma premium de comercialización de oro",
+  "private": true,
+  "scripts": {
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "setup": "npm run install:all && cp backend/.env.example backend/.env && echo 'Setup complete! Edit backend/.env before running.'"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
