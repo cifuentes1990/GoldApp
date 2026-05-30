@@ -1,6 +1,13 @@
 import { useState } from 'react'
 import { MapPin, Phone, Mail, MessageCircle, Clock, Send, Instagram, Facebook, CheckCircle } from 'lucide-react'
+import { useSettings } from '../contexts/SettingsContext'
 import toast from 'react-hot-toast'
+
+const TikTokIcon = ({ size = 15 }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor">
+    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.75a8.18 8.18 0 004.78 1.52V6.82a4.85 4.85 0 01-1.01-.13z"/>
+  </svg>
+)
 
 const FAQS = [
   { q: '¿Cuánto tarda el envío?', a: 'Medellín y área metropolitana: 1 día hábil. Ciudades principales (Bogotá, Cali, Barranquilla): 1–2 días. Resto del país: 2–3 días hábiles.' },
@@ -11,6 +18,7 @@ const FAQS = [
 ]
 
 export default function ContactoPage() {
+  const { settings } = useSettings()
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' })
   const [sent, setSent] = useState(false)
 
@@ -22,10 +30,11 @@ export default function ContactoPage() {
       toast.error('Completa los campos obligatorios')
       return
     }
-    // UI only — no backend for contact form
     setSent(true)
     toast.success('¡Mensaje enviado! Te respondemos pronto ⚜')
   }
+
+  const waLink = `https://wa.me/${settings.whatsapp || '573001234567'}?text=Hola%2C%20quiero%20información%20sobre%20sus%20joyas`
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
@@ -43,42 +52,47 @@ export default function ContactoPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
 
-        {/* Left: info + FAQ */}
+        {/* Left: info + social */}
         <div className="lg:col-span-2 space-y-6">
 
           {/* Contact cards */}
           <div className="space-y-3">
-            <a href="https://wa.me/573001234567?text=Hola%2C%20quiero%20información%20sobre%20sus%20joyas"
-              target="_blank" rel="noreferrer"
-              className="trust-badge group hover:border-green-500/40">
-              <div className="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center flex-shrink-0">
-                <MessageCircle size={18} className="text-green-400" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-white">WhatsApp</p>
-                <p className="text-xs text-gray-500">+57 300 123 4567 · Respuesta inmediata</p>
-              </div>
-            </a>
+            {settings.whatsapp && (
+              <a href={waLink} target="_blank" rel="noreferrer"
+                className="trust-badge group hover:border-green-500/40">
+                <div className="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center flex-shrink-0">
+                  <MessageCircle size={18} className="text-green-400" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-white">WhatsApp</p>
+                  <p className="text-xs text-gray-500">{settings.phone || settings.whatsapp} · Respuesta inmediata</p>
+                </div>
+              </a>
+            )}
 
-            <a href="tel:+573001234567" className="trust-badge group">
-              <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center flex-shrink-0">
-                <Phone size={18} className="text-gold-400" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-white">Teléfono</p>
-                <p className="text-xs text-gray-500">+57 300 123 4567</p>
-              </div>
-            </a>
+            {settings.phone && (
+              <a href={`tel:${settings.phone.replace(/\s/g,'')}`} className="trust-badge group">
+                <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center flex-shrink-0">
+                  <Phone size={18} className="text-gold-400" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-white">Teléfono</p>
+                  <p className="text-xs text-gray-500">{settings.phone}</p>
+                </div>
+              </a>
+            )}
 
-            <a href="mailto:hola@aurumjoyas.co" className="trust-badge group">
-              <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center flex-shrink-0">
-                <Mail size={18} className="text-blue-400" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-white">Email</p>
-                <p className="text-xs text-gray-500">hola@aurumjoyas.co</p>
-              </div>
-            </a>
+            {settings.email && (
+              <a href={`mailto:${settings.email}`} className="trust-badge group">
+                <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center flex-shrink-0">
+                  <Mail size={18} className="text-blue-400" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-white">Email</p>
+                  <p className="text-xs text-gray-500">{settings.email}</p>
+                </div>
+              </a>
+            )}
 
             <div className="trust-badge">
               <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center flex-shrink-0">
@@ -86,41 +100,51 @@ export default function ContactoPage() {
               </div>
               <div>
                 <p className="text-sm font-semibold text-white">Ubicación</p>
-                <p className="text-xs text-gray-500">Medellín, Antioquia · Colombia</p>
+                <p className="text-xs text-gray-500">{settings.address || 'Medellín, Antioquia · Colombia'}</p>
               </div>
             </div>
 
-            <div className="trust-badge">
-              <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center flex-shrink-0">
-                <Clock size={18} className="text-gold-400" />
+            {settings.hours && (
+              <div className="trust-badge">
+                <div className="w-10 h-10 rounded-xl bg-gold-500/10 flex items-center justify-center flex-shrink-0">
+                  <Clock size={18} className="text-gold-400" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-white">Horario de atención</p>
+                  <p className="text-xs text-gray-500">{settings.hours}</p>
+                </div>
               </div>
-              <div>
-                <p className="text-sm font-semibold text-white">Horario de atención</p>
-                <p className="text-xs text-gray-500">Lun – Sáb: 8:00am – 7:00pm</p>
-                <p className="text-xs text-gray-600">Dom: WhatsApp únicamente</p>
-              </div>
-            </div>
+            )}
           </div>
 
           {/* Social */}
           <div className="glass-card p-5 border border-white/5">
             <p className="text-sm font-semibold text-white mb-4">Síguenos en redes</p>
             <div className="flex flex-wrap gap-3">
-              <a href="https://instagram.com" target="_blank" rel="noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 text-sm text-purple-300 hover:border-purple-400/40 transition-colors">
-                <Instagram size={15} /> Instagram
-              </a>
-              <a href="https://facebook.com" target="_blank" rel="noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-sm text-blue-300 hover:border-blue-400/40 transition-colors">
-                <Facebook size={15} /> Facebook
-              </a>
-              <a href="https://tiktok.com/@aurumjoyeria" target="_blank" rel="noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-pink-500/10 border border-pink-500/20 text-sm text-pink-300 hover:border-pink-400/40 transition-colors">
-                <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
-                  <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.75a8.18 8.18 0 004.78 1.52V6.82a4.85 4.85 0 01-1.01-.13z"/>
-                </svg>
-                TikTok
-              </a>
+              {settings.instagram && (
+                <a href={settings.instagram} target="_blank" rel="noreferrer"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 text-sm text-purple-300 hover:border-purple-400/40 transition-colors">
+                  <Instagram size={15} /> Instagram
+                </a>
+              )}
+              {settings.facebook && (
+                <a href={settings.facebook} target="_blank" rel="noreferrer"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-sm text-blue-300 hover:border-blue-400/40 transition-colors">
+                  <Facebook size={15} /> Facebook
+                </a>
+              )}
+              {settings.tiktok && (
+                <a href={settings.tiktok} target="_blank" rel="noreferrer"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-pink-500/10 border border-pink-500/20 text-sm text-pink-300 hover:border-pink-400/40 transition-colors">
+                  <TikTokIcon /> TikTok
+                </a>
+              )}
+              {settings.whatsapp && (
+                <a href={waLink} target="_blank" rel="noreferrer"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-green-500/10 border border-green-500/20 text-sm text-green-300 hover:border-green-400/40 transition-colors">
+                  <MessageCircle size={15} /> WhatsApp
+                </a>
+              )}
             </div>
           </div>
         </div>

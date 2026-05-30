@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+﻿import { Link } from 'react-router-dom'
 import { Truck, RefreshCw, Shield, Package, Clock, MapPin, CheckCircle, AlertCircle } from 'lucide-react'
 
 function Section({ icon: Icon, title, children }) {
@@ -80,7 +80,7 @@ export default function PoliticasPage() {
               'Tienes 30 días desde la fecha de recibo para solicitar una devolución o cambio.',
               'La pieza debe estar en su estado original, sin señales de uso, con su empaque completo.',
               'Para iniciar el proceso, escríbenos por WhatsApp o email con tu número de pedido.',
-              'El costo del envío de devolución es cubierto por AURUM si el error es nuestro.',
+              'El costo del envío de devolución es cubierto por VELORA si el error es nuestro.',
               'Si es por cambio de opinión, el cliente cubre el envío de retorno ($8–15 USD).',
               'El reembolso se procesa en 3–5 días hábiles después de recibir el producto.',
             ].map(item => (
@@ -111,7 +111,7 @@ export default function PoliticasPage() {
         {/* Warranty */}
         <Section icon={Shield} title="Garantía de autenticidad">
           <p>
-            Cada pieza AURUM viene acompañada de un <strong className="text-gold-400">certificado de autenticidad</strong> que garantiza la pureza del oro (14K o 18K), el peso en gramos y el número de serie de la pieza.
+            Cada pieza VELORA viene acompañada de un <strong className="text-gold-400">certificado de autenticidad</strong> que garantiza la pureza del oro (14K o 18K), el peso en gramos y el número de serie de la pieza.
           </p>
           <ul className="space-y-2">
             {[

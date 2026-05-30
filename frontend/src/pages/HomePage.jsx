@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Star, Shield, Truck, Award, RefreshCw, CheckCircle, ChevronRight } from 'lucide-react'
 import api from '../utils/api'
@@ -289,7 +289,7 @@ const TESTIMONIALS = [
     name: 'Luisa Gómez',
     city: 'Cali',
     rating: 5,
-    text: 'Llevo 3 años comprando en AURUM y siempre quedo satisfecha. Los aretes que pedí esta vez son hermosos y el certificado de autenticidad da mucha confianza.',
+    text: 'Llevo 3 años comprando en VELORA y siempre quedo satisfecha. Los aretes que pedí esta vez son hermosos y el certificado de autenticidad da mucha confianza.',
     avatar: 'L',
     product: 'Aretes Argolla 14K',
   },

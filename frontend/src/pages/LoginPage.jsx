@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Eye, EyeOff, Loader2, Lock, Mail } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
@@ -13,7 +13,7 @@ function AuthLayout({ children, title, subtitle, link }) {
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 mb-6">
             <span className="text-3xl">⚜</span>
-            <span className="font-display text-4xl tracking-widest gold-text">AURUM</span>
+            <span className="font-display text-4xl tracking-widest gold-text">VELORA</span>
           </Link>
           <h1 className="text-2xl font-bold text-white">{title}</h1>
           <p className="text-gray-500 mt-1 text-sm">{subtitle}</p>
@@ -45,7 +45,7 @@ export function LoginPage() {
   }
 
   return (
-    <AuthLayout title="Iniciar sesión" subtitle="Accede a tu cuenta AURUM"
+    <AuthLayout title="Iniciar sesión" subtitle="Accede a tu cuenta VELORA"
       link={<>¿No tienes cuenta? <Link to="/registro" className="text-gold-400 hover:text-gold-300 font-semibold">Regístrate gratis</Link></>}>
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
@@ -89,7 +89,7 @@ export function RegisterPage() {
     setLoading(true)
     try {
       await register(form)
-      toast.success('¡Cuenta creada! Bienvenido a AURUM ⚜')
+      toast.success('¡Cuenta creada! Bienvenido a VELORA ⚜')
       navigate('/mi-cuenta')
     } catch (err) {
       toast.error(err.response?.data?.errors?.[0]?.msg || err.response?.data?.error || 'Error al registrarse')
@@ -97,7 +97,7 @@ export function RegisterPage() {
   }
 
   return (
-    <AuthLayout title="Crear cuenta" subtitle="Únete a la plataforma AURUM"
+    <AuthLayout title="Crear cuenta" subtitle="Únete a la plataforma VELORA"
       link={<>¿Ya tienes cuenta? <Link to="/login" className="text-gold-400 hover:text-gold-300 font-semibold">Inicia sesión</Link></>}>
       <form onSubmit={handleSubmit} className="space-y-4">
         {[

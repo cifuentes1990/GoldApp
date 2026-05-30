@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Package, Heart, User, ShoppingBag, ChevronRight, TrendingUp, Clock, Star, ArrowRight } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
@@ -149,7 +149,7 @@ export default function MiCuentaPage() {
           <div className="glass-card p-4 border border-gold-500/15 mt-2">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-xl">⚜</span>
-              <p className="text-sm font-bold text-gold-400">Cliente AURUM</p>
+              <p className="text-sm font-bold text-gold-400">Cliente VELORA</p>
             </div>
             <p className="text-xs text-gray-500 leading-relaxed">
               Gracias por tu confianza. Como cliente registrado disfrutas de envío gratuito en compras mayores a $300 USD.

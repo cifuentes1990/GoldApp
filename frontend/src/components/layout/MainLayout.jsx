@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { Outlet, Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import { useCart } from '../../contexts/CartContext'
 import { useWishlist } from '../../contexts/WishlistContext'
+import { useSettings } from '../../contexts/SettingsContext'
 import {
   ShoppingCart, User, Menu, X, Shield, LogOut,
   Package, ChevronDown, Heart, Phone, MapPin,
@@ -10,10 +11,11 @@ import {
 } from 'lucide-react'
 
 // ─── WhatsApp floating button ───────────────────────────────────────────────
-function WhatsAppButton() {
+function WhatsAppButton({ whatsapp }) {
+  const num = whatsapp || '573001234567'
   return (
     <a
-      href="https://wa.me/573001234567?text=Hola%2C%20quiero%20información%20sobre%20sus%20joyas"
+      href={`https://wa.me/${num}?text=Hola%2C%20quiero%20información%20sobre%20sus%20joyas`}
       target="_blank"
       rel="noopener noreferrer"
       className="whatsapp-btn"
@@ -53,6 +55,7 @@ export default function MainLayout() {
   const { user, logout, isAdmin } = useAuth()
   const { count } = useCart()
   const { count: wishCount } = useWishlist()
+  const { settings } = useSettings()
   const location = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
@@ -97,7 +100,7 @@ export default function MainLayout() {
             <Link to="/" className="flex items-center gap-2.5 group flex-shrink-0">
               <span className="text-2xl">⚜</span>
               <div>
-                <span className="font-display text-3xl tracking-widest gold-text group-hover:glow-text transition-all duration-300">AURUM</span>
+                <span className="font-display text-3xl tracking-widest gold-text group-hover:glow-text transition-all duration-300">VELORA</span>
                 <p className="text-[9px] text-gray-600 tracking-[0.2em] uppercase -mt-1 hidden sm:block">Joyería en Oro</p>
               </div>
             </Link>
@@ -262,31 +265,39 @@ export default function MainLayout() {
             <div className="lg:col-span-1">
               <Link to="/" className="flex items-center gap-2 mb-4">
                 <span className="text-xl">⚜</span>
-                <span className="font-display text-2xl tracking-widest gold-text">AURUM</span>
+                <span className="font-display text-2xl tracking-widest gold-text">VELORA</span>
               </Link>
               <p className="text-sm text-gray-500 leading-relaxed mb-5">
                 Joyería premium en oro 14K y 18K, elaborada artesanalmente en Medellín, Colombia. Diseños únicos con certificado de autenticidad.
               </p>
               <div className="flex items-center gap-3">
-                <a href="https://instagram.com" target="_blank" rel="noreferrer"
-                  className="p-2 rounded-lg bg-dark-300 hover:bg-gold-500/15 text-gray-500 hover:text-gold-400 transition-colors">
-                  <Instagram size={16} />
-                </a>
-                <a href="https://facebook.com" target="_blank" rel="noreferrer"
-                  className="p-2 rounded-lg bg-dark-300 hover:bg-gold-500/15 text-gray-500 hover:text-gold-400 transition-colors">
-                  <Facebook size={16} />
-                </a>
-                <a href="https://tiktok.com/@aurumjoyeria" target="_blank" rel="noreferrer"
-                  className="p-2 rounded-lg bg-dark-300 hover:bg-pink-500/15 text-gray-500 hover:text-pink-400 transition-colors"
-                  title="TikTok">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.75a8.18 8.18 0 004.78 1.52V6.82a4.85 4.85 0 01-1.01-.13z"/>
-                  </svg>
-                </a>
-                <a href="https://wa.me/573001234567" target="_blank" rel="noreferrer"
-                  className="p-2 rounded-lg bg-dark-300 hover:bg-green-500/15 text-gray-500 hover:text-green-400 transition-colors">
-                  <MessageCircle size={16} />
-                </a>
+                {settings.instagram && (
+                  <a href={settings.instagram} target="_blank" rel="noreferrer"
+                    className="p-2 rounded-lg bg-dark-300 hover:bg-gold-500/15 text-gray-500 hover:text-gold-400 transition-colors">
+                    <Instagram size={16} />
+                  </a>
+                )}
+                {settings.facebook && (
+                  <a href={settings.facebook} target="_blank" rel="noreferrer"
+                    className="p-2 rounded-lg bg-dark-300 hover:bg-gold-500/15 text-gray-500 hover:text-gold-400 transition-colors">
+                    <Facebook size={16} />
+                  </a>
+                )}
+                {settings.tiktok && (
+                  <a href={settings.tiktok} target="_blank" rel="noreferrer"
+                    className="p-2 rounded-lg bg-dark-300 hover:bg-pink-500/15 text-gray-500 hover:text-pink-400 transition-colors"
+                    title="TikTok">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                      <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.75a8.18 8.18 0 004.78 1.52V6.82a4.85 4.85 0 01-1.01-.13z"/>
+                    </svg>
+                  </a>
+                )}
+                {settings.whatsapp && (
+                  <a href={`https://wa.me/${settings.whatsapp}`} target="_blank" rel="noreferrer"
+                    className="p-2 rounded-lg bg-dark-300 hover:bg-green-500/15 text-gray-500 hover:text-green-400 transition-colors">
+                    <MessageCircle size={16} />
+                  </a>
+                )}
               </div>
             </div>
 
@@ -334,18 +345,24 @@ export default function MainLayout() {
               <div className="space-y-3">
                 <div className="flex items-start gap-2.5 text-sm text-gray-500">
                   <MapPin size={14} className="text-gold-500 mt-0.5 flex-shrink-0" />
-                  <span>Medellín, Antioquia<br />Colombia</span>
+                  <span>{settings.address || 'Medellín, Antioquia, Colombia'}</span>
                 </div>
-                <div className="flex items-center gap-2.5 text-sm text-gray-500">
-                  <Phone size={14} className="text-gold-500 flex-shrink-0" />
-                  <a href="tel:+573001234567" className="hover:text-gold-400 transition-colors">+57 300 123 4567</a>
-                </div>
-                <div className="flex items-center gap-2.5 text-sm text-gray-500">
-                  <MessageCircle size={14} className="text-green-500 flex-shrink-0" />
-                  <a href="https://wa.me/573001234567" target="_blank" rel="noreferrer"
-                    className="hover:text-green-400 transition-colors">WhatsApp disponible</a>
-                </div>
-                <p className="text-xs text-gray-600 mt-2">Lun – Sáb: 8:00am – 7:00pm</p>
+                {settings.phone && (
+                  <div className="flex items-center gap-2.5 text-sm text-gray-500">
+                    <Phone size={14} className="text-gold-500 flex-shrink-0" />
+                    <a href={`tel:${settings.phone.replace(/\s/g,'')}`} className="hover:text-gold-400 transition-colors">{settings.phone}</a>
+                  </div>
+                )}
+                {settings.whatsapp && (
+                  <div className="flex items-center gap-2.5 text-sm text-gray-500">
+                    <MessageCircle size={14} className="text-green-500 flex-shrink-0" />
+                    <a href={`https://wa.me/${settings.whatsapp}`} target="_blank" rel="noreferrer"
+                      className="hover:text-green-400 transition-colors">WhatsApp disponible</a>
+                  </div>
+                )}
+                {settings.hours && (
+                  <p className="text-xs text-gray-600 mt-2">{settings.hours}</p>
+                )}
               </div>
             </div>
           </div>
@@ -368,7 +385,7 @@ export default function MainLayout() {
           <div className="divider-gold mb-6" />
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
             <p className="text-xs text-gray-600">
-              © {new Date().getFullYear()} AURUM Joyería. Medellín, Colombia. Todos los derechos reservados.
+              © {new Date().getFullYear()} VELORA Joyería. Medellín, Colombia. Todos los derechos reservados.
             </p>
             <div className="flex items-center gap-4">
               <Link to="/politicas" className="text-xs text-gray-600 hover:text-gray-400 transition-colors">Política de envíos</Link>
@@ -380,7 +397,7 @@ export default function MainLayout() {
       </footer>
 
       {/* WhatsApp floating button */}
-      <WhatsAppButton />
+      <WhatsAppButton whatsapp={settings.whatsapp} />
     </div>
   )
 }

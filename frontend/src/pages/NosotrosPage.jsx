@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+﻿import { Link } from 'react-router-dom'
 import { ArrowRight, Award, Users, MapPin, Heart, Star, CheckCircle } from 'lucide-react'
 
 const VALUES = [
@@ -18,7 +18,7 @@ const STATS = [
 const TEAM = [
   { name: 'Andrés Molina', role: 'Fundador & Diseñador jefe', initial: 'A', desc: 'Orfebre con 15 años de experiencia. Egresado de la Escuela de Diseño de Medellín.' },
   { name: 'Sofía Cardona', role: 'Directora comercial', initial: 'S', desc: 'Especialista en joyería de lujo y gestión de marca con experiencia internacional.' },
-  { name: 'Diego Restrepo', role: 'Artesano principal', initial: 'D', desc: 'Maestro joyero con más de 12 años creando piezas únicas en el Taller AURUM.' },
+  { name: 'Diego Restrepo', role: 'Artesano principal', initial: 'D', desc: 'Maestro joyero con más de 12 años creando piezas únicas en el Taller VELORA.' },
 ]
 
 export default function NosotrosPage() {
@@ -33,7 +33,7 @@ export default function NosotrosPage() {
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <span className="section-tag">Nuestra historia</span>
           <h1 className="text-5xl sm:text-6xl font-display tracking-widest text-white mb-6">
-            SOMOS <span className="gold-text">AURUM</span>
+            SOMOS <span className="gold-text">VELORA</span>
           </h1>
           <p className="text-lg text-gray-400 leading-relaxed max-w-2xl mx-auto">
             Nacimos en Medellín con un propósito claro: llevar la belleza del oro colombiano a cada rincón del país, en forma de joyas que cuentan historias y acompañan momentos únicos.
@@ -65,10 +65,10 @@ export default function NosotrosPage() {
             </h2>
             <div className="space-y-4 text-gray-400 text-sm leading-relaxed">
               <p>
-                AURUM nació en 2016 en un pequeño taller del barrio Laureles, en el corazón de Medellín. Andrés Molina, con apenas 25 años y una pasión desbordante por la orfebrería, comenzó creando piezas personalizadas para amigos y familiares.
+                VELORA nació en 2016 en un pequeño taller del barrio Laureles, en el corazón de Medellín. Andrés Molina, con apenas 25 años y una pasión desbordante por la orfebrería, comenzó creando piezas personalizadas para amigos y familiares.
               </p>
               <p>
-                La calidad del trabajo habló por sí sola. En pocos meses, los pedidos crecieron y el taller se expandió. Hoy, AURUM es una joyería virtual que llega a más de <strong className="text-gold-400">25 departamentos de Colombia</strong>, manteniendo siempre ese espíritu artesanal que nos dio vida.
+                La calidad del trabajo habló por sí sola. En pocos meses, los pedidos crecieron y el taller se expandió. Hoy, VELORA es una joyería virtual que llega a más de <strong className="text-gold-400">25 departamentos de Colombia</strong>, manteniendo siempre ese espíritu artesanal que nos dio vida.
               </p>
               <p>
                 Cada pieza que fabricamos lleva el sello del oro colombiano: puro, brillante y con historia. Trabajamos con orfebres locales para garantizar que cada compra también apoye la economía de nuestra ciudad.
@@ -137,7 +137,7 @@ export default function NosotrosPage() {
       {/* Team */}
       <section className="py-20 max-w-5xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-12">
-          <span className="section-tag">Las personas detrás de AURUM</span>
+          <span className="section-tag">Las personas detrás de VELORA</span>
           <h2 className="text-4xl font-display tracking-wider text-white">
             NUESTRO <span className="gold-text">EQUIPO</span>
           </h2>
@@ -161,7 +161,7 @@ export default function NosotrosPage() {
         <div className="gold-card p-10">
           <Heart size={32} className="text-gold-400 mx-auto mb-4" />
           <h3 className="text-3xl font-display tracking-wider text-white mb-3">
-            ÚNETE A LA <span className="gold-text">FAMILIA AURUM</span>
+            ÚNETE A LA <span className="gold-text">FAMILIA VELORA</span>
           </h3>
           <p className="text-gray-500 text-sm mb-6">Descubre por qué más de 2.400 colombianos confían en nosotros para sus momentos más especiales.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
