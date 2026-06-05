@@ -28,8 +28,17 @@ const limiter = rateLimit({
 app.use('/api/', limiter);
 
 // ─── CORS ────────────────────────────────────────────────────────────────────
+// Acepta múltiples orígenes separados por coma en FRONTEND_URL
+const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173')
+  .split(',').map(s => s.trim())
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: (origin, cb) => {
+    // Permite requests sin origin (móvil nativo, Postman, server-to-server)
+    if (!origin) return cb(null, true)
+    if (allowedOrigins.includes(origin)) return cb(null, true)
+    cb(new Error(`CORS bloqueado: ${origin}`))
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization'],

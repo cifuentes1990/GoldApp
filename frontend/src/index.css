@@ -23,6 +23,109 @@
 
 html { scroll-behavior: smooth; }
 
+/* ─── 3D Animation keyframes ─────────────────────────────────────────────── */
+
+/* Floating particles — figure-8 path with Z depth */
+@keyframes float3d {
+  0%   { transform: translate3d(0, 0, 0)       scale(1);    opacity: var(--p-opacity, 0.3); }
+  25%  { transform: translate3d(12px, -18px, 8px)  scale(1.15); opacity: calc(var(--p-opacity, 0.3) * 1.6); }
+  50%  { transform: translate3d(-8px, -30px, 16px) scale(0.9);  opacity: var(--p-opacity, 0.3); }
+  75%  { transform: translate3d(-16px, -12px, 6px) scale(1.1);  opacity: calc(var(--p-opacity, 0.3) * 1.4); }
+  100% { transform: translate3d(0, 0, 0)       scale(1);    opacity: var(--p-opacity, 0.3); }
+}
+
+/* Hero text — slides in with 3D depth */
+@keyframes heroTextIn {
+  from { opacity: 0; transform: perspective(600px) translateZ(-60px) translateY(20px); }
+  to   { opacity: 1; transform: perspective(600px) translateZ(0)     translateY(0);    }
+}
+
+/* Stat cards — float with subtle 3D bob */
+@keyframes statFloat {
+  0%, 100% { transform: perspective(400px) translateY(0)    rotateX(0deg); }
+  50%       { transform: perspective(400px) translateY(-6px) rotateX(2deg); }
+}
+
+/* Gold shimmer sweep */
+@keyframes shimmerSweep {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+.hero-text-3d {
+  animation: heroTextIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.stat-card-3d {
+  animation: statFloat 4s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+/* Scroll-reveal — IntersectionObserver adds .visible */
+.reveal-3d {
+  opacity: 0;
+  transform: perspective(800px) translateY(40px) rotateX(8deg);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal-3d.visible {
+  opacity: 1;
+  transform: perspective(800px) translateY(0) rotateX(0deg);
+}
+
+/* ─── Gold price ticker ─────────────────────────────────────────────────── */
+.ticker-wrap { overflow: hidden; }
+@keyframes tickerScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ticker-inner {
+  display: inline-flex;
+  animation: tickerScroll 30s linear infinite;
+  width: max-content;
+}
+.ticker-inner:hover { animation-play-state: paused; }
+
+/* ─── 3D Flip cards ─────────────────────────────────────────────────────── */
+.flip-card {
+  perspective: 900px;
+  cursor: pointer;
+}
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-card-back {
+  transform: rotateY(180deg);
+  background: #141414;
+}
+
+/* ─── Category card bottom line ────────────────────────────────────────── */
+.category-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+.category-card:hover {
+  background: rgba(245,176,66,0.06);
+  border-color: rgba(245,176,66,0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(245,176,66,0.1);
+}
+
 body {
   background-color: var(--dark-bg);
   color: var(--text-primary);
