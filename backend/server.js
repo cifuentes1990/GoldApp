@@ -12,6 +12,7 @@ const orderRoutes = require('./routes/orders');
 const userRoutes = require('./routes/users');
 const priceRoutes    = require('./routes/prices');
 const settingRoutes  = require('./routes/settings');
+const tryonRoutes    = require('./routes/tryon');
 
 const app = express();
 
@@ -59,6 +60,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/prices',   priceRoutes);
 app.use('/api/settings', settingRoutes);
+app.use('/api/tryon',    tryonRoutes);
 
 // ─── Health Check ─────────────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {

@@ -75,6 +75,8 @@ export default function MainLayout() {
   const navLinks = [
     { to: '/', label: 'Inicio' },
     { to: '/catalogo', label: 'Catálogo' },
+    { to: '/combinar', label: 'Combinar', badge: 'Nuevo' },
+    { to: '/probador', label: 'Probador IA', badge: 'IA' },
     { to: '/nosotros', label: 'Nosotros' },
     { to: '/contacto', label: 'Contacto' },
   ]
@@ -106,11 +108,16 @@ export default function MainLayout() {
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-8">
+            <nav className="hidden lg:flex items-center gap-7">
               {navLinks.map(l => (
                 <Link key={l.to} to={l.to}
-                  className={`nav-link text-sm font-medium ${isActive(l.to) ? 'active' : ''}`}>
+                  className={`nav-link text-sm font-medium relative flex items-center gap-1.5 ${isActive(l.to) ? 'active' : ''}`}>
                   {l.label}
+                  {l.badge && (
+                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full leading-none ${
+                      l.badge === 'IA' ? 'bg-gold-500/20 text-gold-400' : 'bg-green-500/20 text-green-400'
+                    }`}>{l.badge}</span>
+                  )}
                 </Link>
               ))}
             </nav>
@@ -207,12 +214,17 @@ export default function MainLayout() {
             <div className="px-4 py-4 space-y-1">
               {navLinks.map(l => (
                 <Link key={l.to} to={l.to}
-                  className={`block px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
+                  className={`flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
                     isActive(l.to)
                       ? 'bg-gold-500/10 text-gold-400 border border-gold-500/20'
                       : 'text-gray-300 hover:bg-white/5'
                   }`}>
                   {l.label}
+                  {l.badge && (
+                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full leading-none ${
+                      l.badge === 'IA' ? 'bg-gold-500/20 text-gold-400' : 'bg-green-500/20 text-green-400'
+                    }`}>{l.badge}</span>
+                  )}
                 </Link>
               ))}
               {!user ? (

@@ -24,6 +24,8 @@ import MiCuentaPage from './pages/MiCuentaPage'
 import NosotrosPage from './pages/NosotrosPage'
 import ContactoPage from './pages/ContactoPage'
 import PoliticasPage from './pages/PoliticasPage'
+import CombinarPage from './pages/CombinarPage'
+import TryOnPage from './pages/TryOnPage'
 
 // Admin
 import AdminDashboard from './pages/admin/AdminDashboard'
@@ -75,6 +77,8 @@ export default function App() {
                 <Route path="/mi-cuenta" element={<ProtectedRoute><MiCuentaPage /></ProtectedRoute>} />
                 <Route path="/nosotros" element={<NosotrosPage />} />
                 <Route path="/contacto" element={<ContactoPage />} />
+                <Route path="/combinar" element={<CombinarPage />} />
+                <Route path="/probador" element={<TryOnPage />} />
                 <Route path="/politicas" element={<PoliticasPage />} />
                 <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
                 <Route path="/pedidos" element={<ProtectedRoute><OrdersPage /></ProtectedRoute>} />
