@@ -1,9 +1,10 @@
-﻿import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Outlet, Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import { useCart } from '../../contexts/CartContext'
 import { useWishlist } from '../../contexts/WishlistContext'
 import { useSettings } from '../../contexts/SettingsContext'
+import Logo, { LogoEmblem } from '../ui/Logo'
 import {
   ShoppingCart, User, Menu, X, Shield, LogOut,
   Package, ChevronDown, Heart, Phone, MapPin,
@@ -99,12 +100,8 @@ export default function MainLayout() {
           <div className="flex items-center justify-between h-16 lg:h-20">
 
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-2.5 group flex-shrink-0">
-              <span className="text-2xl">⚜</span>
-              <div>
-                <span className="font-display text-3xl tracking-widest gold-text group-hover:glow-text transition-all duration-300">VELORA</span>
-                <p className="text-[9px] text-gray-600 tracking-[0.2em] uppercase -mt-1 hidden sm:block">Joyería en Oro</p>
-              </div>
+            <Link to="/" className="flex items-center group flex-shrink-0">
+              <Logo size="md" />
             </Link>
 
             {/* Desktop Nav */}
@@ -275,9 +272,8 @@ export default function MainLayout() {
 
             {/* Brand */}
             <div className="lg:col-span-1">
-              <Link to="/" className="flex items-center gap-2 mb-4">
-                <span className="text-xl">⚜</span>
-                <span className="font-display text-2xl tracking-widest gold-text">VELORA</span>
+              <Link to="/" className="flex items-center group mb-4">
+                <Logo size="sm" />
               </Link>
               <p className="text-sm text-gray-500 leading-relaxed mb-5">
                 Joyería premium en oro 14K y 18K, elaborada artesanalmente en Medellín, Colombia. Diseños únicos con certificado de autenticidad.
@@ -397,7 +393,7 @@ export default function MainLayout() {
           <div className="divider-gold mb-6" />
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
             <p className="text-xs text-gray-600">
-              © {new Date().getFullYear()} VELORA Joyería. Medellín, Colombia. Todos los derechos reservados.
+              © {new Date().getFullYear()} GIORGIO Joyería. Medellín, Colombia. Todos los derechos reservados.
             </p>
             <div className="flex items-center gap-4">
               <Link to="/politicas" className="text-xs text-gray-600 hover:text-gray-400 transition-colors">Política de envíos</Link>

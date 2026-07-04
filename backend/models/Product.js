@@ -1,5 +1,13 @@
 const mongoose = require('mongoose');
 
+const reviewSchema = new mongoose.Schema({
+  user:     { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  userName: { type: String, required: true },
+  rating:   { type: Number, required: true, min: 1, max: 5 },
+  comment:  { type: String, trim: true, maxlength: 600 },
+  verified: { type: Boolean, default: false },  // true si el usuario compró el producto
+}, { timestamps: true });
+
 const productSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
   description: { type: String, required: true },
@@ -15,9 +23,18 @@ const productSchema = new mongoose.Schema({
   featured: { type: Boolean, default: false },
   isActive: { type: Boolean, default: true },
   soldCount: { type: Number, default: 0 },
-  rating: { type: Number, default: 0, min: 0, max: 5 },
-  reviews: [{ user: String, comment: String, rating: Number, date: Date }],
+  rating: { type: Number, default: 0, min: 0, max: 5 },   // promedio calculado
+  numReviews: { type: Number, default: 0 },
+  reviews: [reviewSchema],
 }, { timestamps: true });
+
+// Recalcula el promedio y el conteo a partir de las reseñas
+productSchema.methods.recalcRating = function () {
+  this.numReviews = this.reviews.length;
+  this.rating = this.reviews.length
+    ? Math.round((this.reviews.reduce((s, r) => s + r.rating, 0) / this.reviews.length) * 10) / 10
+    : 0;
+};
 
 productSchema.index({ category: 1, price: 1, purity: 1 });
 productSchema.index({ name: 'text', description: 'text' }, { weights: { name: 10, description: 3 } });

@@ -104,7 +104,7 @@ export default function TryOnPage() {
     if (!result) return
     const a = document.createElement('a')
     a.href = result
-    a.download = `velora-probador-${Date.now()}.png`
+    a.download = `giorgio-probador-${Date.now()}.png`
     a.click()
   }
 

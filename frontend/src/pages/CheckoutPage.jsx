@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { CreditCard, MapPin, CheckCircle, Loader2, Lock } from 'lucide-react'
+import { CreditCard, MapPin, CheckCircle, Loader2, Lock, Tag, X } from 'lucide-react'
 import { useCart } from '../contexts/CartContext'
 import { useAuth } from '../contexts/AuthContext'
 import api from '../utils/api'
@@ -25,6 +25,10 @@ export default function CheckoutPage() {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const [currency, setCurrency] = useState('COP')
+  const [coupon, setCoupon] = useState('')          // texto del input
+  const [applied, setApplied] = useState(null)      // { code, discount, description }
+  const [couponMsg, setCouponMsg] = useState('')    // mensaje de error
+  const [applying, setApplying] = useState(false)
   const [form, setForm] = useState({
     name: user?.name || '',
     street: user?.address?.street || '',
@@ -42,8 +46,26 @@ export default function CheckoutPage() {
 
   const cur = CURRENCIES.find(c => c.code === currency)
   const shipping = total > 300 ? 0 : 15
-  const totalUSD = total + shipping
+  const discount = applied?.discount || 0
+  const totalUSD = Math.max(0, total + shipping - discount)
   const totalConverted = totalUSD * cur.rate
+
+  const applyCoupon = async () => {
+    if (!coupon.trim()) return
+    setApplying(true)
+    setCouponMsg('')
+    try {
+      const res = await api.post('/coupons/validate', { code: coupon.trim(), subtotal: total })
+      setApplied(res.data)
+      setCouponMsg('')
+      toast.success(`Cupón aplicado · -$${res.data.discount.toFixed(2)}`)
+    } catch (err) {
+      setApplied(null)
+      setCouponMsg(err.response?.data?.error || 'Cupón inválido')
+    } finally { setApplying(false) }
+  }
+
+  const removeCoupon = () => { setApplied(null); setCoupon(''); setCouponMsg('') }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -66,6 +88,7 @@ export default function CheckoutPage() {
         paymentMethod: 'card',
         currency,
         notes: form.giftMessage || undefined,
+        couponCode: applied?.code || undefined,
       })
       clearCart()
       toast.success('¡Pedido realizado con éxito! ⚜')
@@ -229,6 +252,40 @@ export default function CheckoutPage() {
 
             <div className="divider-gold mb-3" />
 
+            {/* Cupón */}
+            <div className="mb-3">
+              {applied ? (
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-green-500/8 border border-green-500/25">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <Tag size={13} className="text-green-400 flex-shrink-0" />
+                    <div className="min-w-0">
+                      <p className="text-xs font-bold text-green-400 truncate">{applied.code}</p>
+                      {applied.description && <p className="text-xs text-gray-500 truncate">{applied.description}</p>}
+                    </div>
+                  </div>
+                  <button type="button" onClick={removeCoupon} className="text-gray-500 hover:text-red-400 transition-colors flex-shrink-0">
+                    <X size={14} />
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <div className="flex gap-2">
+                    <input
+                      value={coupon}
+                      onChange={e => { setCoupon(e.target.value.toUpperCase()); setCouponMsg('') }}
+                      onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); applyCoupon() } }}
+                      placeholder="Código de descuento"
+                      className="input-gold px-3 py-2.5 text-sm flex-1 uppercase" />
+                    <button type="button" onClick={applyCoupon} disabled={applying || !coupon.trim()}
+                      className="btn-outline px-4 py-2.5 text-sm rounded-xl disabled:opacity-40 flex items-center gap-1.5">
+                      {applying ? <Loader2 size={13} className="animate-spin" /> : <Tag size={13} />} Aplicar
+                    </button>
+                  </div>
+                  {couponMsg && <p className="text-xs text-red-400 mt-1.5">{couponMsg}</p>}
+                </div>
+              )}
+            </div>
+
             {/* Totals */}
             <div className="space-y-2 text-sm mb-3">
               <div className="flex justify-between">
@@ -241,6 +298,12 @@ export default function CheckoutPage() {
                   {shipping === 0 ? 'GRATIS' : `$${shipping.toFixed(2)}`}
                 </span>
               </div>
+              {discount > 0 && (
+                <div className="flex justify-between">
+                  <span className="text-green-400 flex items-center gap-1"><Tag size={11} /> Descuento</span>
+                  <span className="font-mono font-semibold text-green-400">−${discount.toFixed(2)}</span>
+                </div>
+              )}
             </div>
 
             <div className="divider-gold mb-3" />

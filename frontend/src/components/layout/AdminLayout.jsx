@@ -1,12 +1,13 @@
-﻿import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Outlet, Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import {
   LayoutDashboard, Package, ShoppingBag, Users, LogOut,
   Menu, X, ChevronRight, Home, AlertTriangle, Zap, Settings,
-  ExternalLink, SlidersHorizontal,
+  ExternalLink, SlidersHorizontal, Tag,
 } from 'lucide-react'
 import api from '../../utils/api'
+import { LogoEmblem } from '../ui/Logo'
 
 // ─── Sidebar content — defined OUTSIDE AdminLayout so React never remounts it ──
 function SidebarContent({ user, logout, navItems, isActive, badges, onNavClick }) {
@@ -15,10 +16,10 @@ function SidebarContent({ user, logout, navItems, isActive, badges, onNavClick }
 
       {/* Logo */}
       <div className="p-6 border-b border-white/5 flex-shrink-0">
-        <Link to="/admin" onClick={onNavClick} className="flex items-center gap-3">
-          <span className="text-2xl">⚜</span>
+        <Link to="/admin" onClick={onNavClick} className="flex items-center gap-3 group">
+          <LogoEmblem size={38} />
           <div>
-            <p className="font-display text-2xl tracking-widest gold-text leading-none">VELORA</p>
+            <p className="font-display text-2xl tracking-[0.18em] gold-text leading-none group-hover:glow-text transition-all">GIORGIO</p>
             <p className="text-xs text-gray-600 tracking-widest uppercase mt-0.5">Panel administrativo</p>
           </div>
         </Link>
@@ -120,6 +121,7 @@ export default function AdminLayout() {
     { to: '/admin/productos', label: 'Productos', icon: Package,    badge: badges.lowStock,    badgeColor: 'bg-amber-500/20 text-amber-400', badgeIcon: AlertTriangle },
     { to: '/admin/pedidos',   label: 'Pedidos',   icon: ShoppingBag, badge: badges.urgentOrders, badgeColor: 'bg-red-500/20 text-red-400',   badgeIcon: Zap },
     { to: '/admin/usuarios',  label: 'Usuarios',  icon: Users },
+    { to: '/admin/cupones',   label: 'Cupones',   icon: Tag },
     { to: '/admin/ajustes',   label: 'Ajustes',   icon: SlidersHorizontal },
   ]
 
@@ -164,7 +166,10 @@ export default function AdminLayout() {
               <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-amber-400 rounded-full" />
             )}
           </button>
-          <span className="font-display text-xl tracking-widest gold-text flex-1">VELORA</span>
+          <div className="flex items-center gap-2 flex-1">
+            <LogoEmblem size={26} />
+            <span className="font-display text-xl tracking-[0.18em] gold-text">GIORGIO</span>
+          </div>
           <span className="text-xs text-gray-500 border border-white/10 px-2.5 py-1 rounded-full flex items-center gap-1">
             <Settings size={10} /> ADMIN
           </span>

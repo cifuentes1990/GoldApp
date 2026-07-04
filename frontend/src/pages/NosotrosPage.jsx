@@ -1,11 +1,11 @@
-﻿import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { ArrowRight, Award, Users, MapPin, Heart, Star, CheckCircle } from 'lucide-react'
 
 const VALUES = [
   { icon: '💎', title: 'Calidad sin compromiso', desc: 'Usamos exclusivamente oro 14K y 18K con certificado de autenticidad. Cada pieza pasa un control de calidad riguroso antes de salir.' },
-  { icon: '🎨', title: 'Diseño artesanal', desc: 'Nuestros artesanos medellonenses combinan técnicas tradicionales con diseños contemporáneos para crear piezas únicas.' },
+  { icon: '🎨', title: 'Tradición italiana', desc: 'Combinamos las técnicas orfebres heredadas de Italia con el diseño contemporáneo, para crear piezas de una elegancia atemporal.' },
   { icon: '🤝', title: 'Confianza y transparencia', desc: 'Precios claros, sin letra pequeña. Te decimos exactamente qué recibirás: pureza, peso y certificado incluido.' },
-  { icon: '🌎', title: 'Hecho en Colombia', desc: 'Orgullosamente fabricado en Medellín, la capital mundial de la moda y una de las ciudades líderes en joyería artesanal.' },
+  { icon: '🌎', title: 'Corazón colombiano', desc: 'Fabricado en Medellín con oro colombiano. Cada compra apoya a los orfebres locales y a la economía de nuestra ciudad.' },
 ]
 
 const STATS = [
@@ -16,9 +16,9 @@ const STATS = [
 ]
 
 const TEAM = [
-  { name: 'Andrés Molina', role: 'Fundador & Diseñador jefe', initial: 'A', desc: 'Orfebre con 15 años de experiencia. Egresado de la Escuela de Diseño de Medellín.' },
-  { name: 'Sofía Cardona', role: 'Directora comercial', initial: 'S', desc: 'Especialista en joyería de lujo y gestión de marca con experiencia internacional.' },
-  { name: 'Diego Restrepo', role: 'Artesano principal', initial: 'D', desc: 'Maestro joyero con más de 12 años creando piezas únicas en el Taller VELORA.' },
+  { name: 'Giorgio Bianchi', role: 'Fundador & Maestro orfebre', initial: 'G', desc: 'Orfebre italiano formado en Florencia. Trajo a Colombia la tradición joyera de su familia, con más de 20 años de oficio.' },
+  { name: 'Valentina Ospina', role: 'Directora de diseño', initial: 'V', desc: 'Diseñadora de joyería de lujo. Fusiona la herencia italiana de la casa con la identidad colombiana contemporánea.' },
+  { name: 'Mateo Restrepo', role: 'Maestro artesano', initial: 'M', desc: 'Orfebre medellinense con más de 12 años dando vida a cada pieza en el taller de GIORGIO.' },
 ]
 
 export default function NosotrosPage() {
@@ -33,10 +33,10 @@ export default function NosotrosPage() {
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <span className="section-tag">Nuestra historia</span>
           <h1 className="text-5xl sm:text-6xl font-display tracking-widest text-white mb-6">
-            SOMOS <span className="gold-text">VELORA</span>
+            SOMOS <span className="gold-text">GIORGIO</span>
           </h1>
           <p className="text-lg text-gray-400 leading-relaxed max-w-2xl mx-auto">
-            Nacimos en Medellín con un propósito claro: llevar la belleza del oro colombiano a cada rincón del país, en forma de joyas que cuentan historias y acompañan momentos únicos.
+            La tradición orfebre italiana y el oro colombiano se encontraron en Medellín. De esa unión nació GIORGIO: joyas que fusionan la elegancia europea con el corazón de Colombia, para acompañar tus momentos más únicos.
           </p>
         </div>
       </section>
@@ -65,13 +65,13 @@ export default function NosotrosPage() {
             </h2>
             <div className="space-y-4 text-gray-400 text-sm leading-relaxed">
               <p>
-                VELORA nació en 2016 en un pequeño taller del barrio Laureles, en el corazón de Medellín. Andrés Molina, con apenas 25 años y una pasión desbordante por la orfebrería, comenzó creando piezas personalizadas para amigos y familiares.
+                GIORGIO nació en 2016, cuando Giorgio Bianchi —maestro orfebre formado en Florencia— se enamoró de Medellín y decidió instalar allí su taller. Traía consigo la tradición joyera de su familia italiana y un sueño: trabajar el oro colombiano con las técnicas del viejo continente.
               </p>
               <p>
-                La calidad del trabajo habló por sí sola. En pocos meses, los pedidos crecieron y el taller se expandió. Hoy, VELORA es una joyería virtual que llega a más de <strong className="text-gold-400">25 departamentos de Colombia</strong>, manteniendo siempre ese espíritu artesanal que nos dio vida.
+                La calidad de su trabajo habló por sí sola. En pocos meses, los pedidos crecieron y el taller se expandió. Hoy, GIORGIO es una joyería virtual que llega a más de <strong className="text-gold-400">25 departamentos de Colombia</strong>, manteniendo siempre ese espíritu artesanal que nos dio vida.
               </p>
               <p>
-                Cada pieza que fabricamos lleva el sello del oro colombiano: puro, brillante y con historia. Trabajamos con orfebres locales para garantizar que cada compra también apoye la economía de nuestra ciudad.
+                Cada pieza que fabricamos une lo mejor de dos mundos: la elegancia atemporal italiana y el brillo del oro colombiano. Trabajamos con orfebres locales para garantizar que cada compra también apoye la economía de nuestra ciudad.
               </p>
             </div>
             <Link to="/catalogo" className="btn-gold inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-sm font-bold mt-8">
@@ -137,7 +137,7 @@ export default function NosotrosPage() {
       {/* Team */}
       <section className="py-20 max-w-5xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-12">
-          <span className="section-tag">Las personas detrás de VELORA</span>
+          <span className="section-tag">Las personas detrás de GIORGIO</span>
           <h2 className="text-4xl font-display tracking-wider text-white">
             NUESTRO <span className="gold-text">EQUIPO</span>
           </h2>
@@ -161,7 +161,7 @@ export default function NosotrosPage() {
         <div className="gold-card p-10">
           <Heart size={32} className="text-gold-400 mx-auto mb-4" />
           <h3 className="text-3xl font-display tracking-wider text-white mb-3">
-            ÚNETE A LA <span className="gold-text">FAMILIA VELORA</span>
+            ÚNETE A LA <span className="gold-text">FAMILIA GIORGIO</span>
           </h3>
           <p className="text-gray-500 text-sm mb-6">Descubre por qué más de 2.400 colombianos confían en nosotros para sus momentos más especiales.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">

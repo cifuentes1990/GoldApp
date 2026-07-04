@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Order = require('../models/Order');
 const Product = require('../models/Product');
+const Coupon = require('../models/Coupon');
 const { protect, adminOnly } = require('../middleware/auth');
 
 // GET /api/orders (user: own orders | admin: all orders)
@@ -101,7 +102,7 @@ router.get('/:id', protect, async (req, res) => {
 // POST /api/orders
 router.post('/', protect, async (req, res) => {
   try {
-    const { items, shippingAddress, paymentMethod, notes, currency } = req.body;
+    const { items, shippingAddress, paymentMethod, notes, currency, couponCode } = req.body;
     if (!items?.length) return res.status(400).json({ error: 'No items in order' });
 
     let subtotal = 0;
@@ -140,7 +141,23 @@ router.post('/', protect, async (req, res) => {
 
     const tax = subtotal * 0.0;
     const shipping = subtotal > 300 ? 0 : 15;
-    const total = subtotal + tax + shipping;
+
+    // Aplicar cupón (revalidado en el servidor — nunca se confía en el descuento del cliente)
+    let discount = 0;
+    let appliedCode = '';
+    let couponDoc = null;
+    if (couponCode) {
+      couponDoc = await Coupon.findOne({ code: String(couponCode).toUpperCase().trim() });
+      if (couponDoc) {
+        const evalResult = couponDoc.evaluate(subtotal);
+        if (evalResult.valid) {
+          discount = evalResult.discount;
+          appliedCode = couponDoc.code;
+        }
+      }
+    }
+
+    const total = Math.max(0, subtotal + tax + shipping - discount);
 
     const order = await Order.create({
       user: req.user._id,
@@ -148,6 +165,8 @@ router.post('/', protect, async (req, res) => {
       subtotal,
       tax,
       shipping,
+      discount,
+      couponCode: appliedCode,
       total,
       currency: currency || 'USD',
       status: 'paid',
@@ -157,6 +176,11 @@ router.post('/', protect, async (req, res) => {
       goldPriceAtOrder: req.body.goldSpotPrice,
       notes,
     });
+
+    // Incrementar el uso del cupón solo si se aplicó de verdad
+    if (couponDoc && discount > 0) {
+      await Coupon.findByIdAndUpdate(couponDoc._id, { $inc: { usedCount: 1 } });
+    }
 
     await order.populate('items.product', 'name image');
     res.status(201).json({ order });

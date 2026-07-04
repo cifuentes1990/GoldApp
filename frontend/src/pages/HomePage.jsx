@@ -13,6 +13,7 @@ import ProductCard from '../components/ui/ProductCard'
 import SearchBar from '../components/ui/SearchBar'
 import QuickViewModal from '../components/ui/QuickViewModal'
 import CompareBar from '../components/ui/CompareBar'
+import { useSettings } from '../contexts/SettingsContext'
 
 const GoldRing3D = lazy(() => import('../components/ui/GoldRing3D'))
 
@@ -598,6 +599,7 @@ function MaterialsSection() {
 // ═══════════════════════════════════════════════════════════════════════════════
 function PersonalizationSection() {
   const ref = useReveal()
+  const { settings } = useSettings()
   const options = [
     { icon:'✍️', title:'Grabados personales', desc:'Nombres, fechas, coordenadas o mensajes secretos en tu joya' },
     { icon:'💎', title:'Piedras a tu gusto', desc:'Selecciona el tipo y color de piedra semipreciosa' },
@@ -625,7 +627,7 @@ function PersonalizationSection() {
                 </div>
               ))}
             </div>
-            <a href="https://wa.me/573001234567?text=Quiero%20personalizar%20una%20joya"
+            <a href={`https://wa.me/${settings.whatsapp || '573001234567'}?text=Quiero%20personalizar%20una%20joya`}
               target="_blank" rel="noreferrer"
               className="btn-gold inline-flex items-center gap-2 px-8 py-4 rounded-xl text-sm font-bold">
               <MessageCircle size={16} /> Consultar por WhatsApp
@@ -928,6 +930,7 @@ const SIZES = [
 function RingSizeGuide() {
   const [sel, setSel] = useState(2)
   const ref = useReveal()
+  const { settings } = useSettings()
   return (
     <section className="py-20 bg-dark-500/20 border-y border-white/4">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -969,7 +972,7 @@ function RingSizeGuide() {
               <p className="text-xs text-gray-500 mb-1">¿No sabes tu talla?</p>
               <p className="text-sm text-gray-300 leading-relaxed">Envuelve un hilo alrededor de tu dedo, mide en mm y compara. O escríbenos y te ayudamos.</p>
             </div>
-            <a href="https://wa.me/573001234567?text=Necesito%20ayuda%20con%20la%20talla%20de%20mi%20anillo"
+            <a href={`https://wa.me/${settings.whatsapp || '573001234567'}?text=Necesito%20ayuda%20con%20la%20talla%20de%20mi%20anillo`}
               target="_blank" rel="noreferrer"
               className="btn-outline w-full py-3 text-sm flex items-center justify-center gap-2">
               <MessageCircle size={14} /> Asesoría gratuita
@@ -988,7 +991,7 @@ function RecentlyViewed({ onQuickView }) {
   const [items, setItems] = useState([])
   useEffect(() => {
     try {
-      const raw = JSON.parse(localStorage.getItem('velora_recent') || '[]')
+      const raw = JSON.parse(localStorage.getItem('giorgio_recent') || '[]')
       if (raw.length > 0) setItems(raw.slice(0, 4))
     } catch {}
   }, [])
@@ -1000,7 +1003,7 @@ function RecentlyViewed({ onQuickView }) {
           <span className="section-tag">Tus favoritos</span>
           <h2 className="text-3xl font-display tracking-wider text-white">VISTOS <span className="gold-text">RECIENTEMENTE</span></h2>
         </div>
-        <button onClick={() => { localStorage.removeItem('velora_recent'); setItems([]) }} className="text-xs text-gray-600 hover:text-gray-400 transition-colors">Limpiar</button>
+        <button onClick={() => { localStorage.removeItem('giorgio_recent'); setItems([]) }} className="text-xs text-gray-600 hover:text-gray-400 transition-colors">Limpiar</button>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {items.map(p => (
@@ -1027,13 +1030,13 @@ function LoyaltySection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 reveal-3d" ref={ref}>
           <span className="section-tag">Programa VIP</span>
-          <h2 className="text-4xl font-display tracking-wider text-white">CLUB <span className="gold-text">VELORA</span></h2>
+          <h2 className="text-4xl font-display tracking-wider text-white">CLUB <span className="gold-text">GIORGIO</span></h2>
           <p className="text-gray-500 mt-2 text-sm max-w-xl mx-auto">Cada compra te acumula beneficios — cuanto más compras, más privilegios</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {[
-            { name:'VELORA',   icon:'⚜',  min:'$0',     color:'text-gray-400', border:'border-gray-700',      bg:'bg-gray-700/20',  perks:['Envío estándar','Certificado incluido','Soporte WhatsApp'] },
-            { name:'PLATA',    icon:'🥈',  min:'$500',   color:'text-slate-300',border:'border-slate-400/30',  bg:'bg-slate-400/10', perks:['Todo VELORA','5% descuento','Empaque premium'] },
+            { name:'GIORGIO',   icon:'⚜',  min:'$0',     color:'text-gray-400', border:'border-gray-700',      bg:'bg-gray-700/20',  perks:['Envío estándar','Certificado incluido','Soporte WhatsApp'] },
+            { name:'PLATA',    icon:'🥈',  min:'$500',   color:'text-slate-300',border:'border-slate-400/30',  bg:'bg-slate-400/10', perks:['Todo GIORGIO','5% descuento','Empaque premium'] },
             { name:'ORO',      icon:'🥇',  min:'$1.500', color:'text-gold-400', border:'border-gold-500/40',   bg:'bg-gold-500/10',  perks:['Todo PLATA','10% descuento','Acceso anticipado'], hot:true },
             { name:'DIAMANTE', icon:'💎',  min:'$5.000', color:'text-blue-300', border:'border-blue-400/30',   bg:'bg-blue-500/8',   perks:['Todo ORO','15% descuento VIP','Asesor exclusivo'] },
           ].map((t, i) => (
@@ -1080,6 +1083,7 @@ const FAQS = [
 function FAQSection() {
   const [open, setOpen] = useState(null)
   const ref = useReveal()
+  const { settings } = useSettings()
   return (
     <section className="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-14 reveal-3d" ref={ref}>
@@ -1104,7 +1108,7 @@ function FAQSection() {
         ))}
       </div>
       <div className="text-center mt-8">
-        <a href="https://wa.me/573001234567" target="_blank" rel="noreferrer"
+        <a href={`https://wa.me/${settings.whatsapp || '573001234567'}`} target="_blank" rel="noreferrer"
           className="inline-flex items-center gap-2 text-sm text-green-400 hover:text-green-300 transition-colors font-semibold">
           <MessageCircle size={16} /> ¿Otra pregunta? Escríbenos ahora
         </a>
@@ -1294,9 +1298,9 @@ export default function HomePage() {
       const p = r.data.product
       if (!p) return
       try {
-        const prev = JSON.parse(localStorage.getItem('velora_recent') || '[]')
+        const prev = JSON.parse(localStorage.getItem('giorgio_recent') || '[]')
         const updated = [p, ...prev.filter(x => x._id !== p._id)].slice(0, 6)
-        localStorage.setItem('velora_recent', JSON.stringify(updated))
+        localStorage.setItem('giorgio_recent', JSON.stringify(updated))
       } catch {}
     }).catch(() => {})
   }, [])

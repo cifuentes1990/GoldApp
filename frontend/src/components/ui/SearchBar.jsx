@@ -18,7 +18,7 @@ export default function SearchBar({ size = 'normal' }) {
 
   // Load recent from localStorage
   useEffect(() => {
-    try { setRecent(JSON.parse(localStorage.getItem('velora_searches') || '[]').slice(0, 4)) } catch {}
+    try { setRecent(JSON.parse(localStorage.getItem('giorgio_searches') || '[]').slice(0, 4)) } catch {}
   }, [open])
 
   // Search API
@@ -40,9 +40,9 @@ export default function SearchBar({ size = 'normal' }) {
 
   const saveRecent = (q) => {
     if (!q.trim()) return
-    const prev = JSON.parse(localStorage.getItem('velora_searches') || '[]')
+    const prev = JSON.parse(localStorage.getItem('giorgio_searches') || '[]')
     const updated = [q, ...prev.filter(x => x !== q)].slice(0, 5)
-    localStorage.setItem('velora_searches', JSON.stringify(updated))
+    localStorage.setItem('giorgio_searches', JSON.stringify(updated))
   }
 
   const go = (q) => {

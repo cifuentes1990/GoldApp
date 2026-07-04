@@ -1,4 +1,4 @@
-﻿import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import api from '../utils/api'
 
 const DEFAULTS = {
@@ -6,8 +6,8 @@ const DEFAULTS = {
   whatsapp:  '573001234567',
   instagram: 'https://instagram.com',
   facebook:  'https://facebook.com',
-  tiktok:    'https://tiktok.com/@velorajoyeria',
-  email:     'contacto@velorajoyeria.com',
+  tiktok:    'https://tiktok.com/@giorgiojoyeria',
+  email:     'contacto@giorgiojoyeria.com',
   address:   'Medellín, Antioquia, Colombia',
   hours:     'Lun – Sáb: 8:00am – 7:00pm',
 }

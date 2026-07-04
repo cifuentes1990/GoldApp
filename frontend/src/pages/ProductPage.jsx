@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { ShoppingCart, ArrowLeft, Shield, Truck, Award, Plus, Minus, Heart } from 'lucide-react'
+import { ShoppingCart, ArrowLeft, Shield, Truck, Award, Plus, Minus, Heart, Star } from 'lucide-react'
 import api from '../utils/api'
 import { useCart } from '../contexts/CartContext'
 import { useWishlist } from '../contexts/WishlistContext'
 import ProductCard from '../components/ui/ProductCard'
+import ProductReviews from '../components/ui/ProductReviews'
 
 export default function ProductPage() {
   const { id } = useParams()
@@ -71,6 +72,18 @@ export default function ProductPage() {
           <div>
             <span className="badge badge-gold mb-3">{categoryLabel[product.category] || product.category}</span>
             <h1 className="text-3xl font-bold text-white mb-2 leading-tight">{product.name}</h1>
+            {product.numReviews > 0 && (
+              <a href="#resenas" className="inline-flex items-center gap-2 mb-2 group">
+                <div className="flex gap-0.5">
+                  {[1,2,3,4,5].map(n => (
+                    <Star key={n} size={14} className={n <= Math.round(product.rating) ? 'text-gold-400 fill-gold-400' : 'text-gray-600'} />
+                  ))}
+                </div>
+                <span className="text-xs text-gray-400 group-hover:text-gold-400 transition-colors">
+                  {product.rating.toFixed(1)} · {product.numReviews} {product.numReviews === 1 ? 'reseña' : 'reseñas'}
+                </span>
+              </a>
+            )}
             <p className="text-gray-400 leading-relaxed">{product.description}</p>
           </div>
 
@@ -151,6 +164,15 @@ export default function ProductPage() {
           </div>
         </div>
       </div>
+      {/* Reviews */}
+      <div id="resenas" className="scroll-mt-24">
+        <ProductReviews
+          key={product._id}
+          product={product}
+          onUpdated={({ rating, numReviews }) => setProduct(p => ({ ...p, rating, numReviews }))}
+        />
+      </div>
+
       {/* Related products */}
       {related.length > 0 && (
         <div className="mt-16">
