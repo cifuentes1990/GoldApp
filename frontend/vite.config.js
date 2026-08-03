@@ -9,8 +9,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg'],
       manifest: {
-        name: 'VELORA Joyería',
-        short_name: 'VELORA',
+        name: 'GIORGIO Joyería',
+        short_name: 'GIORGIO',
         description: 'Joyería premium en oro 14K y 18K. Diseños únicos elaborados artesanalmente en Medellín, Colombia.',
         theme_color: '#0A0A0A',
         background_color: '#0A0A0A',

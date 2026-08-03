@@ -1,5 +1,6 @@
-﻿import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Truck, RefreshCw, Shield, Package, Clock, MapPin, CheckCircle, AlertCircle } from 'lucide-react'
+import { useSettings } from '../contexts/SettingsContext'
 
 function Section({ icon: Icon, title, children }) {
   return (
@@ -16,6 +17,7 @@ function Section({ icon: Icon, title, children }) {
 }
 
 export default function PoliticasPage() {
+  const { settings } = useSettings()
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
 
@@ -80,7 +82,7 @@ export default function PoliticasPage() {
               'Tienes 30 días desde la fecha de recibo para solicitar una devolución o cambio.',
               'La pieza debe estar en su estado original, sin señales de uso, con su empaque completo.',
               'Para iniciar el proceso, escríbenos por WhatsApp o email con tu número de pedido.',
-              'El costo del envío de devolución es cubierto por VELORA si el error es nuestro.',
+              'El costo del envío de devolución es cubierto por GIORGIO si el error es nuestro.',
               'Si es por cambio de opinión, el cliente cubre el envío de retorno ($8–15 USD).',
               'El reembolso se procesa en 3–5 días hábiles después de recibir el producto.',
             ].map(item => (
@@ -111,7 +113,7 @@ export default function PoliticasPage() {
         {/* Warranty */}
         <Section icon={Shield} title="Garantía de autenticidad">
           <p>
-            Cada pieza VELORA viene acompañada de un <strong className="text-gold-400">certificado de autenticidad</strong> que garantiza la pureza del oro (14K o 18K), el peso en gramos y el número de serie de la pieza.
+            Cada pieza GIORGIO viene acompañada de un <strong className="text-gold-400">certificado de autenticidad</strong> que garantiza la pureza del oro (14K o 18K), el peso en gramos y el número de serie de la pieza.
           </p>
           <ul className="space-y-2">
             {[
@@ -157,7 +159,7 @@ export default function PoliticasPage() {
           <h3 className="font-bold text-white text-lg mb-2">¿Tienes más preguntas?</h3>
           <p className="text-gray-500 text-sm mb-5">Nuestro equipo está disponible para ayudarte por WhatsApp, email o teléfono.</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="https://wa.me/573001234567" target="_blank" rel="noreferrer"
+            <a href={`https://wa.me/${settings.whatsapp || '573001234567'}`} target="_blank" rel="noreferrer"
               className="btn-gold inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl text-sm font-bold">
               💬 WhatsApp
             </a>

@@ -16,11 +16,21 @@ export function WishlistProvider({ children }) {
   const toggle = useCallback((product) => {
     setItems(prev => {
       const exists = prev.some(i => i._id === product._id)
-      const next = exists ? prev.filter(i => i._id !== product._id) : [...prev, product]
+      // Al agregar guardamos un snapshot del precio y stock para detectar cambios luego
+      const snapshot = { ...product, savedPrice: product.price, savedStock: product.stock, savedAt: Date.now() }
+      const next = exists ? prev.filter(i => i._id !== product._id) : [...prev, snapshot]
       localStorage.setItem('wishlist', JSON.stringify(next))
       toast(exists ? 'Eliminado de favoritos' : '❤️ Agregado a favoritos', {
         style: { background: '#1A1A1A', color: '#fff', border: '1px solid rgba(245,176,66,0.3)' },
       })
+      return next
+    })
+  }, [])
+
+  const removeItem = useCallback((id) => {
+    setItems(prev => {
+      const next = prev.filter(i => i._id !== id)
+      localStorage.setItem('wishlist', JSON.stringify(next))
       return next
     })
   }, [])
@@ -30,7 +40,7 @@ export function WishlistProvider({ children }) {
   const clear = useCallback(() => save([]), [])
 
   return (
-    <WishlistContext.Provider value={{ items, toggle, isWishlisted, clear, count: items.length }}>
+    <WishlistContext.Provider value={{ items, toggle, removeItem, isWishlisted, clear, count: items.length }}>
       {children}
     </WishlistContext.Provider>
   )

@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Save, Loader2, Phone, MessageCircle, Globe, MapPin, Clock, Mail, RefreshCw } from 'lucide-react'
 import api from '../../utils/api'
 import { useSettings } from '../../contexts/SettingsContext'
@@ -28,7 +28,7 @@ const FIELDS = [
     items: [
       { key: 'phone',    label: 'Teléfono visible',  icon: Phone,          placeholder: '+57 300 123 4567', hint: 'Se muestra en el footer y la página de contacto' },
       { key: 'whatsapp', label: 'WhatsApp (solo dígitos)', icon: MessageCircle, placeholder: '573001234567', hint: 'Sin + ni espacios. Ej: 573001234567 → wa.me/573001234567' },
-      { key: 'email',    label: 'Email de contacto', icon: Mail,           placeholder: 'contacto@velorajoyeria.com', hint: 'Se muestra en la página de contacto' },
+      { key: 'email',    label: 'Email de contacto', icon: Mail,           placeholder: 'contacto@giorgiojoyeria.com', hint: 'Se muestra en la página de contacto' },
       { key: 'address',  label: 'Dirección / Ciudad', icon: MapPin,        placeholder: 'Medellín, Antioquia, Colombia' },
       { key: 'hours',    label: 'Horario de atención', icon: Clock,        placeholder: 'Lun – Sáb: 8:00am – 7:00pm' },
     ],
@@ -36,9 +36,9 @@ const FIELDS = [
   {
     section: 'Redes sociales',
     items: [
-      { key: 'instagram', label: 'Instagram (URL completa)', icon: InstagramIcon, placeholder: 'https://instagram.com/velorajoyeria' },
-      { key: 'facebook',  label: 'Facebook (URL completa)',  icon: FacebookIcon,  placeholder: 'https://facebook.com/velorajoyeria' },
-      { key: 'tiktok',    label: 'TikTok (URL completa)',    icon: TikTokIcon,    placeholder: 'https://tiktok.com/@velorajoyeria' },
+      { key: 'instagram', label: 'Instagram (URL completa)', icon: InstagramIcon, placeholder: 'https://instagram.com/giorgiojoyeria' },
+      { key: 'facebook',  label: 'Facebook (URL completa)',  icon: FacebookIcon,  placeholder: 'https://facebook.com/giorgiojoyeria' },
+      { key: 'tiktok',    label: 'TikTok (URL completa)',    icon: TikTokIcon,    placeholder: 'https://tiktok.com/@giorgiojoyeria' },
     ],
   },
 ]

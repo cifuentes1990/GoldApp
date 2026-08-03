@@ -126,6 +126,39 @@ html { scroll-behavior: smooth; }
   box-shadow: 0 12px 32px rgba(245,176,66,0.1);
 }
 
+/* ─── Logo emblem ───────────────────────────────────────────────────────── */
+.logo-emblem { overflow: visible; }
+
+.logo-emblem .logo-gem,
+.logo-emblem .logo-letter {
+  transform-origin: 50% 50%;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.logo-emblem .logo-glow {
+  transition: opacity 0.4s ease;
+  animation: logoGlowPulse 3.5s ease-in-out infinite;
+}
+.logo-emblem .logo-sparkle {
+  transform-origin: 50px 8px;
+  animation: logoSparkle 2.8s ease-in-out infinite;
+}
+
+/* Hover (the whole logo group): gem spins gently, letter pops, glow intensifies */
+.group:hover .logo-emblem .logo-gem   { transform: rotate(8deg) scale(1.05); }
+.group:hover .logo-emblem .logo-letter { transform: scale(1.12); }
+.group:hover .logo-emblem .logo-glow   { opacity: 1.6; }
+
+@keyframes logoGlowPulse {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1; }
+}
+@keyframes logoSparkle {
+  0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+  15%      { opacity: 1; transform: scale(1) rotate(0deg); }
+  40%      { opacity: 0.3; transform: scale(0.8) rotate(15deg); }
+  60%      { opacity: 0; transform: scale(0.5) rotate(0deg); }
+}
+
 body {
   background-color: var(--dark-bg);
   color: var(--text-primary);

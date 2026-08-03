@@ -12,6 +12,8 @@ const orderRoutes = require('./routes/orders');
 const userRoutes = require('./routes/users');
 const priceRoutes    = require('./routes/prices');
 const settingRoutes  = require('./routes/settings');
+const tryonRoutes    = require('./routes/tryon');
+const couponRoutes   = require('./routes/coupons');
 
 const app = express();
 
@@ -59,6 +61,8 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/prices',   priceRoutes);
 app.use('/api/settings', settingRoutes);
+app.use('/api/tryon',    tryonRoutes);
+app.use('/api/coupons',  couponRoutes);
 
 // ─── Health Check ─────────────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {
@@ -83,7 +87,7 @@ app.use('*', (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 mongoose
-  .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/velora_trading')
+  .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/giorgio_trading')
   .then(async () => {
     console.log('✅ MongoDB connected');
     await seedDatabase();
@@ -105,15 +109,15 @@ async function seedDatabase() {
   const adminExists = await User.findOne({ role: 'admin' });
   if (!adminExists) {
     await User.create({
-      name: 'Admin Velora',
-      email: 'admin@velora.com',
+      name: 'Admin Giorgio',
+      email: 'admin@giorgio.com',
       password: 'Admin1234!', // el hook pre('save') del modelo lo hashea automáticamente
       role: 'admin',
       isVerified: true,
       phone: '+57 300 000 0000',
       address: { street: 'Calle 1', city: 'Medellín', country: 'Colombia' },
     });
-    console.log('✅ Admin user created → admin@velora.com / Admin1234!');
+    console.log('✅ Admin user created → admin@giorgio.com / Admin1234!');
   }
 
   const productCount = await Product.countDocuments();

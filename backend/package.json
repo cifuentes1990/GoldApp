@@ -1,7 +1,7 @@
 {
-  "name": "velora-backend",
+  "name": "giorgio-backend",
   "version": "1.0.0",
-  "description": "VELORA Joyería — Backend API",
+  "description": "GIORGIO Joyería — Backend API",
   "main": "server.js",
   "engines": {
     "node": ">=18.0.0"

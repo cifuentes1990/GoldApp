@@ -15,8 +15,8 @@ const maskableSvg = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" viewBox
     <stop offset="0%" stop-color="#F5B042"/><stop offset="50%" stop-color="#FFD700"/><stop offset="100%" stop-color="#C8860A"/>
   </linearGradient></defs>
   <rect width="512" height="512" fill="#0A0A0A"/>
-  <text x="256" y="290" font-family="Georgia, serif" font-size="190" font-weight="bold" fill="url(#g)" text-anchor="middle">V</text>
-  <text x="256" y="370" font-family="Arial, sans-serif" font-size="44" letter-spacing="9" fill="url(#g)" text-anchor="middle">VELORA</text>
+  <text x="256" y="290" font-family="Georgia, serif" font-size="190" font-weight="bold" fill="url(#g)" text-anchor="middle">G</text>
+  <text x="256" y="370" font-family="Arial, sans-serif" font-size="40" letter-spacing="6" fill="url(#g)" text-anchor="middle">GIORGIO</text>
 </svg>`)
 
 const tasks = [

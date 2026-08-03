@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft, Package, MapPin, CheckCircle, Truck, Copy } from 'lucide-react'
 import api from '../utils/api'
+import { useSettings } from '../contexts/SettingsContext'
 import toast from 'react-hot-toast'
 
 const STATUS_MAP = {
@@ -23,6 +24,7 @@ const STEPS = [
 
 export default function OrderDetailPage() {
   const { id } = useParams()
+  const { settings } = useSettings()
   const [order, setOrder] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -187,6 +189,12 @@ export default function OrderDetailPage() {
                 {order.shipping === 0 ? 'GRATIS' : `$${order.shipping?.toFixed(2)}`}
               </span>
             </div>
+            {order.discount > 0 && (
+              <div className="flex justify-between">
+                <span className="text-green-400">Descuento{order.couponCode ? ` (${order.couponCode})` : ''}</span>
+                <span className="font-mono text-green-400">−${order.discount?.toFixed(2)}</span>
+              </div>
+            )}
             <div className="divider-gold my-2" />
             <div className="flex justify-between font-bold">
               <span className="text-white">Total</span>
@@ -207,7 +215,7 @@ export default function OrderDetailPage() {
       {/* Help */}
       <div className="mt-6 p-4 rounded-xl bg-dark-400/50 border border-white/5 flex flex-col sm:flex-row items-start sm:items-center gap-3 justify-between">
         <p className="text-xs text-gray-500">¿Necesitas ayuda con tu pedido?</p>
-        <a href="https://wa.me/573001234567" target="_blank" rel="noreferrer"
+        <a href={`https://wa.me/${settings.whatsapp || '573001234567'}`} target="_blank" rel="noreferrer"
           className="text-xs text-green-400 hover:text-green-300 font-semibold flex items-center gap-1.5 transition-colors">
           💬 Contáctanos por WhatsApp
         </a>

@@ -1,8 +1,9 @@
-﻿import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { CartProvider } from './contexts/CartContext'
 import { WishlistProvider } from './contexts/WishlistContext'
 import { SettingsProvider } from './contexts/SettingsContext'
+import { LogoEmblem } from './components/ui/Logo'
 
 // Layouts
 import MainLayout from './components/layout/MainLayout'
@@ -24,12 +25,15 @@ import MiCuentaPage from './pages/MiCuentaPage'
 import NosotrosPage from './pages/NosotrosPage'
 import ContactoPage from './pages/ContactoPage'
 import PoliticasPage from './pages/PoliticasPage'
+import CombinarPage from './pages/CombinarPage'
+import TryOnPage from './pages/TryOnPage'
 
 // Admin
 import AdminDashboard from './pages/admin/AdminDashboard'
 import AdminProducts from './pages/admin/AdminProducts'
 import AdminOrders from './pages/admin/AdminOrders'
 import AdminUsers from './pages/admin/AdminUsers'
+import AdminCoupons from './pages/admin/AdminCoupons'
 import AdminSettings from './pages/admin/AdminSettings'
 
 function ProtectedRoute({ children, adminOnly = false }) {
@@ -50,9 +54,12 @@ function GuestRoute({ children }) {
 function PageLoader() {
   return (
     <div className="fixed inset-0 bg-dark-600 flex items-center justify-center z-50">
-      <div className="flex flex-col items-center gap-4">
-        <div className="w-16 h-16 border-2 border-gold-500/20 border-t-gold-500 rounded-full animate-spin" />
-        <p className="text-gold-500 font-display text-xl tracking-widest animate-pulse">VELORA</p>
+      <div className="flex flex-col items-center gap-5">
+        <div className="relative w-20 h-20 flex items-center justify-center">
+          <div className="absolute inset-0 border-2 border-gold-500/15 border-t-gold-500 rounded-full animate-spin" />
+          <LogoEmblem size={48} />
+        </div>
+        <p className="text-gold-500 font-display text-xl tracking-[0.3em] animate-pulse">GIORGIO</p>
       </div>
     </div>
   )
@@ -75,6 +82,8 @@ export default function App() {
                 <Route path="/mi-cuenta" element={<ProtectedRoute><MiCuentaPage /></ProtectedRoute>} />
                 <Route path="/nosotros" element={<NosotrosPage />} />
                 <Route path="/contacto" element={<ContactoPage />} />
+                <Route path="/combinar" element={<CombinarPage />} />
+                <Route path="/probador" element={<TryOnPage />} />
                 <Route path="/politicas" element={<PoliticasPage />} />
                 <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
                 <Route path="/pedidos" element={<ProtectedRoute><OrdersPage /></ProtectedRoute>} />
@@ -92,6 +101,7 @@ export default function App() {
                 <Route path="productos" element={<AdminProducts />} />
                 <Route path="pedidos" element={<AdminOrders />} />
                 <Route path="usuarios" element={<AdminUsers />} />
+                <Route path="cupones" element={<AdminCoupons />} />
                 <Route path="ajustes" element={<AdminSettings />} />
               </Route>
 
